@@ -13,12 +13,15 @@ class readDRS4
         void Initializing();
         std::vector<double> GetData(int eventNum, int channelNum);
         
+        void SetDRS4Setting(int boardNum, int channelNum){mBoardNum = boardNum; mChannelNum = channelNum;}
         void SetPath(TString path){mPath = path;}
         TString GetPath(){return mPath;}
     private:
         TString mPath;
         unsigned short* mData;
         int mLength;
+        int mBoardNum = 2;
+        int mChannelNum = 4;
 
 };
 #endif
