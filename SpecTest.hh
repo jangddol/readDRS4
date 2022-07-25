@@ -15,21 +15,23 @@ class SpecTest
 public:
 	SpecTest(TString path, int totalEventNum);
 	
-	double GetGain(int eventNum, int channelNum, double threshold);
-	double GetGain(int eventNum, int channelNum1, int channelNum2, double threshold);
-	void GetGainHist(TH1D* hist, int channelNum, double threshold);
-	void GetGainHist(TH1D* hist, int channelNum1, int channelNum2, double threshold);
+	bool GetGain(double& output, int eventNum, int channelNum, double threshold);  // for gen2
+	bool GetGain(double& output, int eventNum, int channelNum1, int channelNum2, double threshold); // for gen1
+	void GetGainHist(TH1D* hist, int channelNum, double threshold); // for gen2
+	void GetGainHist(TH1D* hist, int channelNum1, int channelNum2, double threshold); // for gen1
 	bool GetTT(double& output, int eventNum, int channelNum, int trigChannelNum, double threshold);
 	double GetTTS(TH1D* hist, int channelNum, int trigChannelNum, double threshold);
 	double GetQE(int channelNum, double threshold);
 
-	double FunctionForFitTTS(double* x, double* par);
+	readDRS4* mReadDRS4;
 
 private:
-	readDRS4* mReader;
+	static double FunctionForFitTTS(double* x, double* par);
+	static double GetCenter_5Points(std::vector<double> Vlist, int peakIndex);
+
 	TF1* mFitFunc;
 	int mTotalEventNum;
-	const static double mDtDRS4 = 1 / 5.12; // ns
-	const static double mOhmDRS4 = 50; // Ohm
+	constexpr static double mDtDRS4 = 1 / 5.12; // ns
+	constexpr static double mOhmDRS4 = 50; // Ohm
 };
 #endif
