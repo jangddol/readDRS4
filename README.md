@@ -9,6 +9,8 @@ This class need to be used with ROOT(CERN).
 
 
 ## How to use readDRS4
+'readDRS4' is the class whose purpose is to get rawdata event by event from DRS4 binary data.
+Note that the time bin width of DRS4 is 1/5.12 ns.
 -----------------------
 ```C++
 #include "readDRS4.cc"
@@ -29,6 +31,7 @@ reader->ShowData(eventNum); // you can see all of channel (8 channel) in one ima
 
 -----------------------
 ## How to use SpecTest
+'SpecTest' is the class for whose pupose is to analysis PMT spec test from DRS4 binary data.
 ```C++
 #include "SpecTest.cc"
 
