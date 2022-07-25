@@ -8,10 +8,31 @@ This class need to be used with ROOT(CERN).
 > git clone https://github.com/jangddol/readDRS4.git
 
 
+## How to use readDRS4
 -----------------------
-## How to use
 ```C++
-TString path = "../07-11-2022 1126.dat"
+#include "readDRS4.cc"
+#include <vector>
+
+TString path = "../07-11-2022 1126.dat";
+readDRS4* reader = new readDRS4(path);
+
+int eventNum = 1435; // if you want to see 1435th event
+int channelNum = 1; // if you want to see 1st channel of 1st board
+std::vector<double> Vlist = reader->GetData(eventNum, channelNum);
+
+reader->ShowData(eventNum); // you can see all of channel (8 channel) in one image with using this method
+
+```
+
+
+
+-----------------------
+## How to use SpecTest
+```C++
+#include "SpecTest.cc"
+
+TString path = "../07-11-2022 1126.dat";
 int totalEventNum = 20000;
 
 SpecTest* spectest = new SpecTest(path, totalEventNum);
