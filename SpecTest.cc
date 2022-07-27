@@ -22,8 +22,16 @@ bool SpecTest::GetGain(double& output, int eventNum, int channelNum, double thre
             result += Vlist[i] * mDtDRS4;
         }
     }
-    output = -result / mOhmDRS4;
-    return whetherFire;
+    if (whetherFire)
+    {
+        output = -result / mOhmDRS4;
+        return true;
+    }
+    else
+    {
+        output = 0;
+        return false;
+    }
 }
 
 
@@ -68,10 +76,11 @@ bool SpecTest::GetGain(double& output, int eventNum, int channelNum1, int channe
 void SpecTest::GetGainHist(TH1D* hist, int channelNum, double threshold)
 {
     double temp;
+    bool whetherFire;
     for (int i = 0; i < mTotalEventNum; i++)
     {
-        GetGain(temp, i, channelNum, threshold);
-        hist->Fill(temp);
+        whetherFire = GetGain(temp, i, channelNum, threshold);
+        if (whetherFire) hist->Fill(temp);
     }
 }
 
@@ -79,10 +88,11 @@ void SpecTest::GetGainHist(TH1D* hist, int channelNum, double threshold)
 void SpecTest::GetGainHist(TH1D* hist, int channelNum1, int channelNum2, double threshold)
 {
     double temp;
+    bool whetherFire;
     for (int i = 0; i < mTotalEventNum; i++)
     {
-        GetGain(temp, i, channelNum1, channelNum2, threshold);
-        hist->Fill(temp);
+        whetherFire = GetGain(temp, i, channelNum1, channelNum2, threshold);
+        if (whetherFire) hist->Fill(temp);
     }
 }
 
